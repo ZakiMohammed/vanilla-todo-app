@@ -3,6 +3,9 @@
     - COLORS
     - IMPORTS
     - GLOBAL
+    - CONTAINER
+    - FORM
+    - CARD
 */
 
 /* COLORS
@@ -24,4 +27,120 @@
 * {
     font-family: 'Poppins', sans-serif;
     color: #2d3436;
+}
+body {
+    background-color: #dfe6e9;
+}
+.btn-back {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #b2bec3;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.btn-back:hover {
+    background-color: #dfe6e9;
+}
+
+/* CONTAINER
+---------------------------------------------------------------------- */
+.container {
+    margin: 50px 20px;
+}
+.container > h1 {
+    text-align: center;
+    color: #e84393;
+    margin: 0;
+    margin-bottom: 5px;
+}
+.container > h5 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
+}
+.container > h5 a {
+    text-decoration: none;
+}
+/* medium to tablet */
+@media (min-width: 900px) and (max-width: 1300px) {
+    .container {
+        margin: 50px 100px;
+    }
+}
+/* wide screen */
+@media (min-width: 1301px) {
+    .container {
+        margin: 50px 300px;
+    }
+}
+
+/* FORM
+---------------------------------------------------------------------- */
+.form {
+    display: flex;
+    margin-bottom: 20px;
+}
+.form input {
+    flex-basis: 90%;
+    height: 40px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form input:focus-visible {
+    outline: #b2bec3 auto 1px;
+}
+.form button {
+    flex-basis: 10%;
+    color: #fff;
+    background-color: #e84393;
+    border: none;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form button:hover {
+    background-color: #fd79a8;
+}
+.form button i {
+    color: #fff;
+    font-size: 18px;
+}
+
+/* CARD
+---------------------------------------------------------------------- */
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+.card h4 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+.card p {
+    margin: 0;
+    font-size: 14px;
+}
+.card .btn-remove {
+    background-color: #ff7675;
+    border: 1px solid #ff7675;
+    color: #fff;
+    padding: 0px 8px;
+    border-radius: 10px;
+    float: right;
+    margin-left: 10px;
+}
+.card .btn-remove:hover {
+    background-color: #fab1a0;
+    border: 1px solid #fab1a0;
+}
+.card .btn-remove i {
+    color: #fff;
+}
+.card-holder .card:last-child {
+    margin-bottom: 0;
 }

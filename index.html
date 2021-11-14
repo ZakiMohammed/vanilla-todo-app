@@ -5,14 +5,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Todo Application</title>
 
+    <!-- font awesome -->
+    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="css/all.min.css">
+
+    <!-- custom -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <h1>Todo Application</h1>
+    <div class="container">
+        <h1>Todo Application</h1>
+        <h5><a href="about.html">About</a></h5>
+
+        <div class="form">
+            <input type="text" id="txtTask" placeholder="Enter you task">
+            <button id="btnAdd"><i class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="card-holder">
+            <div class="card">
+                <button class="btn-remove"><i class="fas fa-times"></i></button>
+                <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="card">
+                <button class="btn-remove"><i class="fas fa-times"></i></button>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde est nostrum optio et modi atque ea
+                    aliquid velit officiis commodi!</p>
+            </div>
+            <div class="card">
+                <button class="btn-remove"><i class="fas fa-times"></i></button>
+                <p>Lorem, ipsum.</p>
+            </div>
+            <div class="card">
+                <button class="btn-remove"><i class="fas fa-times"></i></button>
+                <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 
