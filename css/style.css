@@ -1,0 +1,27 @@
+/* 
+    TABLE CONTENT
+    - COLORS
+    - IMPORTS
+    - GLOBAL
+*/
+
+/* COLORS
+---------------------------------------------------------------------- */
+/* 
+    https://flatuicolors.com/palette/us
+    primary: #e84393
+    secondary: #fd79a8
+    background: #dfe6e9
+    reading: #2d3436
+*/
+
+/* IMPORTS
+---------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* GLOBAL
+---------------------------------------------------------------------- */
+* {
+    font-family: 'Poppins', sans-serif;
+    color: #2d3436;
+}
