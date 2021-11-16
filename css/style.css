@@ -6,6 +6,7 @@
     - CONTAINER
     - FORM
     - CARD
+    - EMPTY
 */
 
 /* COLORS
@@ -143,4 +144,18 @@ body {
 }
 .card-holder .card:last-child {
     margin-bottom: 0;
+}
+
+/* EMPTY
+---------------------------------------------------------------------- */
+.empty {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    padding: 50px 0;
+}
+.empty i {
+    display: block;
+    color: #aaa;
+    margin-bottom: 5px;
 }
