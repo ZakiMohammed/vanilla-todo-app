@@ -1,5 +1,6 @@
 const dvCardHolder = document.querySelector('.card-holder');
 const dvEmpty = document.querySelector('.empty');
+const dvLoader = document.querySelector('.loader');
 const txtTitle = document.querySelector('#txtTitle');
 const btnAdd = document.querySelector('#btnAdd');
 const btnClear = document.querySelector('#btnClear');
@@ -22,15 +23,22 @@ const toggleClear = () => {
 };
 const toggleStatus = () => {
     toggleEmpty();
-    toggleClear();
+    // toggleClear();
 };
 const removeTask = (e, id) => {
-    const index = tasks.findIndex(i => i.id === id);
-    tasks.splice(index, 1);
+    // remove todo
+    showLoader();
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(() => {
+            const index = tasks.findIndex(i => i.id === id);
+            tasks.splice(index, 1);
 
-    e.parentElement.remove();
+            e.parentElement.remove();
 
-    toggleStatus();
+            toggleStatus();
+            hideLoader();
+        })
 };
 const getUniqueId = () => {
     const uniqueId = +(Math.random() * 100).toFixed(0);
@@ -41,23 +49,40 @@ const getUniqueId = () => {
         return getUniqueId();
     }
 };
+const showLoader = () => {
+    dvLoader.classList.remove('d-none');
+};
+const hideLoader = () => {
+    dvLoader.classList.add('d-none');
+};
 
-tasks.forEach(task => {
-    dvCardHolder.innerHTML += `
-        <div class="card">
-            <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
-            <p>${task.title}</p>
-        </div>
-    `;
-})
+// get all todo
+showLoader();
+fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+    .then(response => response.json())
+    .then(data => {
 
-toggleStatus();
+        // feed the data coming from UI to your array
+        tasks = data;
+
+        tasks.forEach(task => {
+            dvCardHolder.innerHTML += `
+                <div class="card">
+                    <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
+                    <p>${task.title}</p>
+                </div>
+            `;
+        })
+
+        toggleStatus();
+        hideLoader();
+    })
 
 txtTitle.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         btnAdd.click();
     }
-})
+});
 btnAdd.addEventListener('click', () => {
 
     const title = txtTitle.value;
@@ -71,26 +96,43 @@ btnAdd.addEventListener('click', () => {
         id: getUniqueId(),
         title: title
     };
-    tasks.unshift(task);
+    const options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(task),
+    };
 
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-        <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
-        <p>${task.title}</p>
-    `;
-    dvCardHolder.prepend(card);
+    // add todo
+    showLoader();
+    fetch('https://jsonplaceholder.typicode.com/todos', options)
+        .then(response => response.json())
+        .then(data => {
+            tasks.unshift(task);
 
-    txtTitle.value = '';
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
+                <p>${task.title}</p>
+            `;
+            dvCardHolder.prepend(card);
 
-    toggleStatus();
+            txtTitle.value = '';
+
+            toggleStatus();
+            hideLoader();
+        })
 });
 btnClear.addEventListener('click', () => {
     const result = confirm('Are you sure you want to remove all the tasks?');
-    if (result) {
-        tasks = [];
-        dvCardHolder.innerHTML = '';
-
-        toggleStatus();
+    if (result === false) {
+        return;
     }
-})
+
+    tasks = [];
+    dvCardHolder.innerHTML = '';
+
+    toggleStatus();
+});
