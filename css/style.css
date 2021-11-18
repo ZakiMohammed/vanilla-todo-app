@@ -7,6 +7,7 @@
     - FORM
     - CARD
     - EMPTY
+    - CLEAR
 */
 
 /* COLORS
@@ -79,7 +80,7 @@ body {
 ---------------------------------------------------------------------- */
 .form {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .form input {
     flex-basis: 90%;
@@ -158,4 +159,21 @@ body {
     display: block;
     color: #aaa;
     margin-bottom: 5px;
+}
+
+/* CLEAR
+---------------------------------------------------------------------- */
+#btnClear {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 12px;
+    padding: 0;
+    color: #777;
+    display: block;
+    text-align: right;
+    width: 100%;
+}
+#btnClear i {
+    color: #777;   
 }
