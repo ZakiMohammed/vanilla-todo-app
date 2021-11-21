@@ -5,6 +5,8 @@ const txtTitle = document.querySelector('#txtTitle');
 const btnAdd = document.querySelector('#btnAdd');
 const btnClear = document.querySelector('#btnClear');
 
+const apiUrl = 'http://localhost:3000/api/todos/';
+
 let tasks = [];
 
 const toggleEmpty = () => {
@@ -23,15 +25,15 @@ const toggleClear = () => {
 };
 const toggleStatus = () => {
     toggleEmpty();
-    // toggleClear();
+    toggleClear();
 };
-const removeTask = (e, id) => {
+const removeTask = (e, _id) => {
     // remove todo
     showLoader();
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, { method: 'DELETE' })
+    fetch(`${apiUrl}${_id}`, { method: 'DELETE' })
         .then(response => response.json())
         .then(() => {
-            const index = tasks.findIndex(i => i.id === id);
+            const index = tasks.findIndex(i => i._id === _id);
             tasks.splice(index, 1);
 
             e.parentElement.remove();
@@ -42,7 +44,7 @@ const removeTask = (e, id) => {
 };
 const getUniqueId = () => {
     const uniqueId = +(Math.random() * 100).toFixed(0);
-    const found = tasks.find(i => i.id === uniqueId);
+    const found = tasks.find(i => i._id === uniqueId);
     if (found === undefined) {
         return uniqueId;
     } else {
@@ -58,7 +60,7 @@ const hideLoader = () => {
 
 // get all todo
 showLoader();
-fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
 
@@ -68,7 +70,7 @@ fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
         tasks.forEach(task => {
             dvCardHolder.innerHTML += `
                 <div class="card">
-                    <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
+                    <button class="btn-remove" onclick="removeTask(this, '${task._id}')"><i class="fas fa-times"></i></button>
                     <p>${task.title}</p>
                 </div>
             `;
@@ -93,7 +95,6 @@ btnAdd.addEventListener('click', () => {
     }
 
     const task = {
-        id: getUniqueId(),
         title: title
     };
     const options = {
@@ -106,15 +107,16 @@ btnAdd.addEventListener('click', () => {
 
     // add todo
     showLoader();
-    fetch('https://jsonplaceholder.typicode.com/todos', options)
+    fetch(apiUrl, options)
         .then(response => response.json())
         .then(data => {
-            tasks.unshift(task);
+            task._id = data._id;
+            tasks.unshift(data);
 
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <button class="btn-remove" onclick="removeTask(this, ${task.id})"><i class="fas fa-times"></i></button>
+                <button class="btn-remove" onclick="removeTask(this, '${task._id}')"><i class="fas fa-times"></i></button>
                 <p>${task.title}</p>
             `;
             dvCardHolder.prepend(card);
@@ -131,8 +133,16 @@ btnClear.addEventListener('click', () => {
         return;
     }
 
-    tasks = [];
-    dvCardHolder.innerHTML = '';
+    showLoader();
+    fetch(`${apiUrl}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(() => {
+            tasks = [];
+            dvCardHolder.innerHTML = '';
 
-    toggleStatus();
+            toggleStatus();
+            hideLoader();
+        })
+
+    
 });
