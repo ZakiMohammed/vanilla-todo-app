@@ -5,7 +5,11 @@ const txtTitle = document.querySelector('#txtTitle');
 const btnAdd = document.querySelector('#btnAdd');
 const btnClear = document.querySelector('#btnClear');
 
-const apiUrl = 'http://localhost:3000/api/todos/';
+// local
+// const apiUrl = 'http://localhost:3000/api/todos/';
+
+// production
+const apiUrl = 'https://vanillax-todo-api.herokuapp.com/api/todos/';
 
 let tasks = [];
 
